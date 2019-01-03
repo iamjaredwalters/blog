@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `The Art of Over-Engineering`,
     author: `Jared Walters`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `A blog about doing things`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
       twitter: `iamjaredwalters`,
