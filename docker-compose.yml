@@ -10,3 +10,8 @@ services:
       - .:/app
     environment:
       VIRTUAL_HOST: artofoverengineering.test
+
+networks:
+ default:
+   external:
+     name: nginx-proxy
