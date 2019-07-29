@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  gatsby:
+    image: artofoverengineering/gatsby
+    command: develop
+    expose:
+      - '8000'
+    volumes:
+      - .:/app
+    environment:
+      VIRTUAL_HOST: artofoverengineering.test
+
+networks:
+ default:
+   external:
+     name: nginx-proxy
