@@ -3,13 +3,13 @@ title: My Terminal
 date: '2019-05-22T05:26:13.284Z'
 ---
  ## Prereq's
-This setup is based on:
+Make sure these are installed:
 * [Hyper](https://hyper.is/) for terminal
 * [Zsh](https://www.zsh.org/) for shell
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) for managing zsh configuration 
 
-## Hasklig Font
-Nerd Fonts include icons with fonts. Install Hasklig from [Nerdfonts](http://nerdfonts.com/) and tell Hyper about it:
+## Nerd Font
+Nerd Fonts are fonts with icons included. Install Hasklig from [Nerdfonts](http://nerdfonts.com/) and tell Hyper about it
 ```js
 // ~/.hyper.js
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
 > Heads up, the font name is called _Hasklig_ on Nerdfonts but installs as _Hasklug NF_ locally
 
 ## Pure Prompt
-[Pure](https://github.com/sindresorhus/pure) is a minimal zsh prompt. Install the prompt globally via npm:
+[Pure](https://github.com/sindresorhus/pure) is a minimal zsh prompt. Install the prompt globally via npm
 
 `npm install --global pure-prompt`
 
@@ -41,29 +41,29 @@ Follow the [installation instructions](https://github.com/agkozak/zsh-z#for-oh-m
 ## Colors LS
 [Color LS](https://github.com/athityakumar/colorls#installation) beautifies the terminal's `ls` command with color and font-awesome icons.
 
-Install the ruby gem: 
+Install the ruby gem
 ```ruby
 gem install colorls
 ```
 
-And add the `ll` and `l` aliases to `.zshrc` to to use Color LS:
+And add the `ll` and `l` aliases to `.zshrc` to to use Color LS
 ```bash
 # .zshrc
 alias l='colorls --group-directories-first --almost-all'
 alias ll='colorls --group-directories-first --almost-all --long' # detailed list view
 ```
 
-**[insert image of final output]**
+<iframe src='https://gfycat.com/ifr/EsteemedGivingFugu' frameborder='0' scrolling='no' allowfullscreen width='640' height='434'></iframe>
 
-#### Create Custom Color Scheme
-Create a custom color scheme based on the Color LS dark theme:
+#### Custom Color Scheme
+Create a custom color scheme. Use the Color LS dark theme as a basic template:
 ```bash
 cp $(dirname $(gem which colorls))/yaml/dark_colors.yaml ~/.config/colorls/dark_colors.yaml
 ``` 
 
 > If "no such file or directory" then `mkdir ~/.config/colorls` first.
 
-Next, open `dark_colors.yaml` and edit it:
+Next, open `dark_colors.yaml` and replace its contents with
 ```yaml
 # Main Colors
 unrecognized_file: lightgray
@@ -112,9 +112,9 @@ unchanged:    white
 ```
 
 ## Hyper Plugins
-Theme: hyper-chesterish
-Status bar: hyperline
-
+Configure plugins in `.hyper.js`
+```bash
+plugins: [
     'hyper-chesterish',
     'hyper-tabs-enhanced',
     'hyperline',
@@ -122,12 +122,14 @@ Status bar: hyperline
     'hyperterm-paste',
     'hypercwd',
     'hyper-quit',
-    'hyper-pane', 
+    'hyper-pane',
+],
+```
 
 ## Bonus 
 #### NVM 
-Configure zsh to call `nvm use` automatically in a directory with a .nvmrc file.
-Add the following to `~/.zshrc`:
+Configure zsh to call `nvm use` automatically in any directory with a .nvmrc file.
+Add the following to `~/.zshrc`
 
 ```bash
 # place this after nvm initialization!
