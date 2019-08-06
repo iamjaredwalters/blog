@@ -9,7 +9,10 @@ Make sure these are installed:
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) for managing zsh configuration 
 
 ## Nerd Font
-Nerd Fonts are fonts with icons included. Install Hasklig from [Nerdfonts](http://nerdfonts.com/) and tell Hyper about it
+Nerd Fonts are fonts with icons included. Install Hasklig from [Nerdfonts](http://nerdfonts.com/) and configure `.hyper.js` to use it:
+
+> Heads up, the font name is called _Hasklig_ on Nerdfonts but installs as _Hasklug NF_ locally
+
 ```js
 // ~/.hyper.js
 module.exports = {
@@ -20,12 +23,14 @@ module.exports = {
 }
 ```
 
-> Heads up, the font name is called _Hasklig_ on Nerdfonts but installs as _Hasklug NF_ locally
-
 ## Pure Prompt
-[Pure](https://github.com/sindresorhus/pure) is a minimal zsh prompt. Install the prompt globally via npm
+![Pure prompt](./pure-prompt-cap3.png)
 
-`npm install --global pure-prompt`
+[Pure](https://github.com/sindresorhus/pure) is a minimal zsh prompt. Install the prompt globally via npm:
+
+```shell script
+npm install --global pure-prompt
+```
 
 Then update `.zshrc` to load the prompt:
 ```bash
@@ -35,40 +40,45 @@ prompt pure
 ```
 
 ## Z
+![z command output](./z-command.gif)
+
 [Z](https://github.com/agkozak/zsh-z) is a CLI tool that lets you quickly jump to directories that have been frequently visited in the past. 
 Follow the [installation instructions](https://github.com/agkozak/zsh-z#for-oh-my-zsh-users) for oh-my-zsh.
 
 ## Colors LS
+![ll command output](./ll-command-40fr.gif)
+
 [Color LS](https://github.com/athityakumar/colorls#installation) beautifies the terminal's `ls` command with color and font-awesome icons.
 
-Install the ruby gem
+Install the ruby gem:
+
 ```ruby
 gem install colorls
 ```
 
-And add the `ll` and `l` aliases to `.zshrc` to to use Color LS
+And add the `ll` and `l` aliases to `.zshrc` to to use Color LS:
+
 ```bash
-# .zshrc
 alias l='colorls --group-directories-first --almost-all'
 alias ll='colorls --group-directories-first --almost-all --long' # detailed list view
 ```
 
-<iframe src='https://gfycat.com/ifr/EsteemedGivingFugu' frameborder='0' scrolling='no' allowfullscreen width='640' height='434'></iframe>
+#### Make a Color Scheme
+Create a custom color scheme for Color LS. Use the Color LS dark theme as a basic template:
 
-#### Custom Color Scheme
-Create a custom color scheme. Use the Color LS dark theme as a basic template:
+> Make sure `~/.config/colorls` directory exists.
+
 ```bash
 cp $(dirname $(gem which colorls))/yaml/dark_colors.yaml ~/.config/colorls/dark_colors.yaml
 ``` 
 
-> If "no such file or directory" then `mkdir ~/.config/colorls` first.
 
-Next, open `dark_colors.yaml` and replace its contents with
+Next, open `dark_colors.yaml` and replace its contents:
 ```yaml
 # Main Colors
 unrecognized_file: lightgray
 recognized_file:   white
-dir:               blue
+dir:              blue
 
 # Link
 dead_link: red
@@ -88,7 +98,7 @@ no_access: dimgray
 # Age
 day_old:     white
 hour_old:    white
-no_modifier: white
+no_modifier:  white
 
 # File Size
 file_large:  white
@@ -105,7 +115,7 @@ normal: darkgray
 
 # Git
 addition:     green
-modification: yellow
+modification:  yellow
 deletion:     red
 untracked:    darkgray
 unchanged:    white
@@ -126,31 +136,32 @@ plugins: [
 ],
 ```
 
-## Bonus 
-#### NVM 
-Configure zsh to call `nvm use` automatically in any directory with a .nvmrc file.
+## Bonus
+Configure zsh to call `nvm use` automatically in any directory with a `.nvmrc` file.
 Add the following to `~/.zshrc`
 
 ```bash
 # place this after nvm initialization!
 autoload -U add-zsh-hook
+
 load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
+    
+    if [ -n "$nvmrc_path" ]; then
+        local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    
     if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
+        nvm install
     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+        nvm use
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+        echo "Reverting to nvm default version"
+        nvm use default
+    fi
 }
+
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 ```
